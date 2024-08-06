@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "name": "org.openrichmedia.devcontainers/quali-dev-order-flow-dev:0824",
+  "service": "dev",
+  "dockerComposeFile": "docker-compose.yml",
+  "workspaceFolder": "/root/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-quarkus",
+        "nrwl.angular-console",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh/id_rsa,target=/root/.ssh/id_rsa,type=bind,consistency=cached"
+  ]
+}
