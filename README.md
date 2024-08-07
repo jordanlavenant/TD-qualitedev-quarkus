@@ -58,32 +58,32 @@ This application does not cover customer management nor order delivery processin
 Allow management of cart, which is a list of items that a customer wants to buy.
 It also handles transmitting item locking, which is the process of reserving items in stock for a customer.
 
-Cart is a set of AggregateRoot CartItem.
+**Cart** is a set of AggregateRoot **CartItem**.
 
-CartItem is composed of :
-- Item : the item that is in cart
-- Quantity : the quantity of the item in cart
+**CartItem** is composed of :
+- `Item` : the item that is in cart
+- `Quantity` : the quantity of the item in cart
 
-Cart can have following states :
-- Open : the cart is open. Items can be added or removed. This is the default state.
-- Closed : the cart is closed. Items cannot be added or removed. Happens when the cart is confirmed.
-- Archived : the cart is archived. This is the default state of a cart that staled for too long. It allows customers to keep an history of their unemptied carts.
+**Cart** can have following states :
+- `Open` : the cart is open. Items can be added or removed. This is the default state.
+- `Closed` : the cart is closed. Items cannot be added or removed. Happens when the cart is confirmed.
+- `Archived` : the cart is archived. This is the default state of a cart that staled for too long. It allows customers to keep an history of their unemptied carts.
 
-Cart can receive following commands :
-- AddItem : add an item to the cart.
-- RemoveItem : remove an item from the cart.
-- Clear : remove all items from the cart.
+**Cart** can receive following commands :
+- `AddItem` : add an item to the cart.
+- `RemoveItem` : remove an item from the cart.
+- `Clear` : remove all items from the cart.
 
-Cart can have following events :
-- ItemAdded : an item has been added to the cart.
-- ItemRemoved : an item has been removed from the cart.
-- Cleared : all items have been removed from the cart.
+**Cart** can have following events :
+- `ItemAdded` : an item has been added to the cart.
+- `ItemRemoved` : an item has been removed from the cart.
+- `Cleared` : all items have been removed from the cart.
 
 Basic rules :
-- Cart can be cleared at any time.
-- Cart can be closed at any time.
-- Cart is archived after a certain time of inactivity.
-- Cart can be reopened after being archived.
+- **Cart** can be cleared at any time.
+- **Cart** can be closed at any time.
+- **Cart** is archived after a certain time of inactivity.
+- **Cart** can be reopened after being archived.
 
 ### Order processing
 
@@ -91,49 +91,51 @@ Basic rules :
 
 Allow management of order life-cycle.
 
-Order is a set of AggregateRoot OrderItem.
+**Order** is a set of AggregateRoot **OrderItem**.
 
-OrderItem is composed of :
-- Item : the item that is in order
-- Quantity : the quantity of the item in order
+**OrderItem** is composed of :
+- `Item` : the item that is in order
+- `Quantity` : the quantity of the item in order
 
-Orders can have following states :
-- Pending : the order is created but not confirmed yet.
-- Confirmed : the order is confirmed. All necessary informations have been given and confirmed (ex: customer's informations collected and payment done)
-- Processing : the order is being prepared, items collected, packages, etc.
-- Shipped : the order has been shipped and is heading to customer. 
-- Delivered : the order has been delivered to customer.
-- Cancelled : the order has been cancelled.
-- Returned : the order has been returned by customer.
-- Completed : the order has been completed. This is the nominal final state of an order.
-- Failed : the order has failed. This is the final state of an order.
+**Order** can have following states :
+- `Pending` : the order is created but not confirmed yet.
+- `Processing` : the order is being prepared, items collected, packages, etc.
+- `Shipped` : the order has been shipped and is heading to customer. 
+- `Delivered` : the order has been delivered to customer.
+- `Cancelled` : the order has been cancelled.
+- `Returned` : the order has been returned by customer.
+- `Completed` : the order has been completed. This is the nominal final state of an order.
+- `Failed` : the order has failed. This is the final state of an order.
 
-Service can receive following commands :
-- CreateOrder : create the order.
+**OrderService** can handle following commands :
+- `CreateOrder` : create the order.
 
-Orders can receive following commands :
-- Start : start processing the order.
-- Ship : ship the order.
-- ConfirmDelivery : confirm the delivery of the order.
-- Cancel : cancel the order.
-- ConfirmReturn : confirm the return of the order.
-- Complete : complete the order.
-- ConfirmFailure : confirm the failure of the order.
+**Order** can handle following commands :
+- `Start` : start processing the order.
+- `Ship` : ship the order.
+- `ConfirmProcessing` : finish processing the order.
+- `ConfirmDelivery` : confirm the delivery of the order.
+- `Cancel` : cancel the order.
+- `ConfirmReturn` : confirm the return of the order.
+- `Complete` : complete the order.
+- `RaiseFailure` : confirm the failure of the order.
 
-Orders can have following events :
-- Confirmed : the order has been confirmed.
-- Processed : the order has been processed.
-- Shipped : the order has been shipped.
-- Delivered : the order has been delivered.
-- Cancelled : the order has been cancelled.
-- Returned : the order has been returned.
-- Completed : the order has been completed.
-- Failed : the order has failed.
+**Order** can have following events :
+- `Confirmed` : the order has been confirmed.
+- `Started` : the order has been started and is being processed.
+- `Processed` : the order has been processed.
+- `Shipped` : the order has been shipped.
+- `Delivered` : the order has been delivered.
+- `Cancelled` : the order has been cancelled.
+- `Returned` : the order has been returned.
+- `Completed` : the order has been completed.
+- `Failed` : the order has failed.
 
 Basic rules :
-- Orders is created from a cart.
-- Orders can be cancelled until they are shipped.
-- Orders can be returned until they are completed.
+- **Order** is created from a cart.
+- **Order** can be cancelled until they are shipped.
+- **Order** can be returned while delivered until they are completed, failed or returned.
+- **Order** can be failed until they are completed.
 
 ### Stock management
 
@@ -144,35 +146,41 @@ Allow management of stock.
 The stock is the list of items that are available for sale.
 This is a simplified model.
 
-Stock is a set of AggregateRoot StockItem.
+**Stock** is a set of AggregateRoot **StockItem**.
 
-StockItem is composed of :
-- Item : the item that is in stock
-- Units : available units of the item
-- ItemLocks : the list of item locks that are currently active for this item
+**StockItem** is composed of :
+- `Item` : the item that is in stock
+- `Units` : available units of the item
+- `ItemLocks` : the list of item locks that are currently active for this item
 
 There is a strong relation between units and item locks.
 
-StockItem can have following states :
-- Available : the item is available for sale.
-- Locked : the item is locked and not available for sale.
+**StockItem** can have following states :
+- `Available` : the item is available for sale.
+- `Unavailable` : the item is locked and not available for sale.
 
-StockService can receive following commands :
-- AddItem : add an item to the stock.
-- RemoveItem : remove an item from the stock.
+**StockService** can receive following commands :
+- `AddItem` : add an item to the stock.
+- `RemoveItem` : remove an item from the stock.
 
-StockItem can receive following commands :
-- LockUnit : lock an item.
-- UnlockUnit : unlock an item.
-- ShipUnit : ship an item.
-- RemoveUnit : remove a unit from the stock.
+**StockItem** can receive following commands :
+- `LockUnit` : lock an item.
+- `UnlockUnit` : unlock an item.
+- `ShipUnit` : ship an item.
+- `RemoveUnit` : remove a unit from the stock.
+
+**StockItem** can have following events :
+- `ItemAdded` : an item has been added to the stock.
+- `ItemRemoved` : an item has been removed from the stock.
+- `UnitLocked` : a unit has been locked.
+- `UnitUnlocked` : a unit has been unlocked.
 
 Basic rules :
-- When an item is locked, it is not available for sale anymore.
-- When an item is ordered, it is locked until the associated order is shipped.
-- When an order is shipped, the item is unlocked and unit is removed.
-- When an order is cancelled, the item is unlocked and unit is restored.
-- When an item is returned, the item is unlocked and unit is restored.
+- When a **StockItem** is locked, it is not available for sale anymore.
+- When a **StockItem** is ordered, it is locked until the associated order is shipped.
+- When a **Order** is shipped, the item is unlocked and unit is removed.
+- When a **Order** is cancelled, the item is unlocked and unit is restored.
+- When a **StockItem** is returned, the item is unlocked and unit is restored.
 
 ## Documentation
 

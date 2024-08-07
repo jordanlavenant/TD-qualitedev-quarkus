@@ -13,7 +13,7 @@
       "{workspaceRoot}/.gitlab-ci.yml"
     ]
   },
-  "nxCloudAccessToken": "Yzg5OWE4M2UtMGViZS00ZmQ5LTg3MGQtZWEwOTkyYTFiMWRkfHJlYWQtd3JpdGU=",
+  "neverConnectToCloud": true,
   "plugins": [
     {
       "plugin": "@nx/gradle",

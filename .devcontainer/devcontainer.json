@@ -7,9 +7,19 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "redhat.vscode-quarkus",
         "nrwl.angular-console",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "vscjava.vscode-gradle",
+        "vscjava.vscode-java-debug",
+        "mongodb.mongodb-vscode",
+        "jebbs.plantuml",
+        "redhat.java",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "vscjava.vscode-java-dependency",
+        "vscjava.vscode-java-test",
+        "ms-vscode.live-server",
+        "redhat.vscode-quarkus",
+        "contextmapper.context-mapper-vscode-extension"
       ]
     }
   },
