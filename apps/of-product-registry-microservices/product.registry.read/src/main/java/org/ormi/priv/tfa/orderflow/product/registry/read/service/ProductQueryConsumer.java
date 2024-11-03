@@ -38,6 +38,7 @@ public class ProductQueryConsumer {
   /**
    * Query result emitter.
    */
+  @Inject
   private ProductQueryResultEmitter resultEmitter;
 
   /**

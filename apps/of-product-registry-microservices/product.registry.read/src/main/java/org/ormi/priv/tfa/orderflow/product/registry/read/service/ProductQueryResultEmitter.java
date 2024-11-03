@@ -21,7 +21,10 @@ public class ProductQueryResultEmitter {
     // Get the producer for the correlation id
     final Producer<ProductRegistryQueryResult> producer = getResultProducerByCorrelationId(correlationId, ProductRegistryQueryResult.class);
     // Sink the result
-    producer.sendAsync(result)
+    producer
+        .newMessage()
+        .value(result)
+        .sendAsync()
         .whenComplete((msgId, ex) -> {
           if (ex != null) {
             throw new RuntimeException("Failed to send message", ex);

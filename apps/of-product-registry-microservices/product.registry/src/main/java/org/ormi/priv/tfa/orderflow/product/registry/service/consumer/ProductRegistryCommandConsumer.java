@@ -71,10 +71,11 @@ public class ProductRegistryCommandConsumer {
         .thenCompose(evt -> {
           // Produce event on correlated bus
           eventProducer.sink(correlationId, evt);
+          Log.debug(String.format("Acknowledge command: %s", cmd.getClass().getName()));
           return msg.ack();
         }).exceptionallyCompose(e -> {
           // Log error and nack message
-          Log.error("Failed to handle command", e);
+          Log.error(String.format("Failed to handle command: %s", e.getMessage()));
           return msg.nack(e);
         });
   }

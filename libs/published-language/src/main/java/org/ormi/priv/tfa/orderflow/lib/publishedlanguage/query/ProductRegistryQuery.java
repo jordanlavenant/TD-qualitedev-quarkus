@@ -24,8 +24,7 @@ public sealed interface ProductRegistryQuery permits GetProductById, GetProducts
   )
   @JsonSubTypes({
       @JsonSubTypes.Type(value = GetProductByIdResult.class, name = "GetProductByIdResult"),
-      @JsonSubTypes.Type(value = GetProductsResult.class, name = "GetProductsResult"),
-      @JsonSubTypes.Type(value = ProductNotFound.class, name = "ProductNotFound")
+      @JsonSubTypes.Type(value = GetProductsResult.class, name = "GetProductsResult")
   })
   public interface ProductRegistryQueryResult {
   }

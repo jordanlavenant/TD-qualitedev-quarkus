@@ -88,7 +88,10 @@ public class ProductRegistryEventEmitter {
     // Get the producer for the correlation id
     final Producer<ProductRegistryEvent> producer = getEventSinkByCorrelationId(correlationId);
     // Sink the event
-    producer.sendAsync(event)
+    producer
+        .newMessage()
+        .value(event)
+        .sendAsync()
         .whenComplete((msgId, ex) -> {
           if (ex != null) {
             throw new RuntimeException("Failed to produce event for correlation id: " + correlationId, ex);

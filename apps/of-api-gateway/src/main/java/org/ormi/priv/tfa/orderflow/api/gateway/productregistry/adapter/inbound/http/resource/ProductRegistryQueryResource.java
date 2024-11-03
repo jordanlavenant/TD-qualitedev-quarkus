@@ -68,7 +68,7 @@ public class ProductRegistryQueryResource {
     queryEmitter.send(
         PulsarOutgoingMessage.from(Message.of(getProductById))
             .addMetadata(PulsarOutgoingMessageMetadata.builder()
-                .withProperties(Map.of("correlationId", correlationId))
+                .withProperties(Map.of("correlation-id", correlationId))
                 .build()));
     // Get the consumer for the result
     final Consumer<GetProductByIdResult> consumer = getResultsConsumerByCorrelationId(correlationId,
@@ -121,7 +121,7 @@ public class ProductRegistryQueryResource {
     queryEmitter.send(
         PulsarOutgoingMessage.from(Message.of(getProducts))
             .addMetadata(PulsarOutgoingMessageMetadata.builder()
-                .withProperties(Map.of("correlationId", correlationId))
+                .withProperties(Map.of("correlation-id", correlationId))
                 .build()));
     // Get the consumer for the result
     final Consumer<GetProductsResult> consumer = getResultsConsumerByCorrelationId(correlationId,
