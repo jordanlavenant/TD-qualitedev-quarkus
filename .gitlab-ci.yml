@@ -24,8 +24,7 @@ variables:
     - corepack prepare pnpm@latest --activate
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
-    - pnpm nx reset
-    - pnpm nx generate @nx/gradle:init --verbose
+    - pnpm remove -D @nx/gradle # Remove the gradle plugin due to issues in CI environment
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
 
@@ -45,7 +44,7 @@ pages:
   stage: build
   image: $DOCKER_IMAGE
   script:
-    - pnpm nx run doc-material:build --verbose
+    - pnpm nx run doc-material:build
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
