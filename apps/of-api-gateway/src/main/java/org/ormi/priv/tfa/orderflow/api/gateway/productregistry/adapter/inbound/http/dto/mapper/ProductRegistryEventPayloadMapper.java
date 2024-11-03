@@ -9,6 +9,7 @@ import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.h
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.event.ProductRegistered;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.event.ProductRemoved;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.event.ProductUpdated;
+import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.valueobject.mapper.ProductIdMapper;
 
 @Mapper(uses = {ProductIdMapper.class})
 public interface ProductRegistryEventPayloadMapper {

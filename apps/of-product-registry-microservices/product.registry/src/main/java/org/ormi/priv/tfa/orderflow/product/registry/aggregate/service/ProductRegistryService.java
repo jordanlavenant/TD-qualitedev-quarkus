@@ -90,9 +90,10 @@ public class ProductRegistryService {
           PRODUCT_REGISTRY_ID,
           registry.incrementVersion(),
           Instant.now().toEpochMilli(),
-          new ProductId(),
-          registerProduct.getName(),
-          registerProduct.getProductDescription());
+          new ProductRegistered.Payload(
+              new ProductId(),
+              registerProduct.getName(),
+              registerProduct.getProductDescription()));
       productRegistryRepository.saveEvent(ProductRegistryEventEntityMapper.INSTANCE.toEntity(evt));
 
       // Emit the event
@@ -129,11 +130,12 @@ public class ProductRegistryService {
         PRODUCT_REGISTRY_ID,
         registry.incrementVersion(),
         Instant.now().toEpochMilli(),
-        updateProduct.getProductId(),
-        updateProduct.getName(),
-        updateProduct.getProductDescription());
+        new ProductUpdated.Payload(
+            updateProduct.getProductId(),
+            updateProduct.getName(),
+            updateProduct.getProductDescription()));
     productRegistryRepository.saveEvent(ProductRegistryEventEntityMapper.INSTANCE.toEntity(evt));
-  
+
     // Emit the event
     eventEmitter.emit(evt);
 
@@ -160,9 +162,9 @@ public class ProductRegistryService {
         PRODUCT_REGISTRY_ID,
         registry.incrementVersion(),
         Instant.now().toEpochMilli(),
-        removeProduct.getProductId());
+          new ProductRemoved.Payload(removeProduct.getProductId()));
     productRegistryRepository.saveEvent(ProductRegistryEventEntityMapper.INSTANCE.toEntity(evt));
-    
+
     // Emit the event
     eventEmitter.emit(evt);
 

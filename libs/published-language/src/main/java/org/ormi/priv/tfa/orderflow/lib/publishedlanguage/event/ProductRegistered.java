@@ -41,6 +41,15 @@ public final class ProductRegistered extends Event implements ProductRegistryEve
    */
   public Payload payload;
 
+  /**
+   * Constructor.
+   * 
+   * @param id - The id of the event.
+   * @param aggregateId - The id of the aggregate.
+   * @param version - The version of the aggregate.
+   * @param timestamp - The timestamp of the event.
+   * @param payload - The payload of the event.
+   */
   public ProductRegistered(
       @JsonProperty("id") EventId id,
       @JsonProperty("aggregateId") String aggregateId,
@@ -49,29 +58,6 @@ public final class ProductRegistered extends Event implements ProductRegistryEve
       @JsonProperty("payload") Payload payload) {
     super(id, aggregateId, version, timestamp, EVENT_TYPE);
     this.payload = payload;
-  }
-
-  /**
-   * Constructor.
-   * 
-   * @param id                 - the event id
-   * @param aggregateId        - the aggregate id
-   * @param version            - the version
-   * @param timestamp          - the timestamp
-   * @param productId          - the product id
-   * @param name               - the name of the product
-   * @param productDescription - the description of the product
-   */
-  public ProductRegistered(
-      EventId id,
-      String aggregateId,
-      long version,
-      long timestamp,
-      ProductId productId,
-      String name,
-      String productDescription) {
-    super(id, aggregateId, version, timestamp, EVENT_TYPE);
-    this.payload = new Payload(productId, name, productDescription);
   }
 
   @Override

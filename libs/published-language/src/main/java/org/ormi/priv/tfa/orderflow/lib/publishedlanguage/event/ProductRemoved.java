@@ -47,20 +47,6 @@ public final class ProductRemoved extends Event implements ProductRegistryEvent 
     this.payload = payload;
   }
 
-  /**
-   * Constructor.
-   * 
-   * @param id - the event id
-   * @param aggregateId - the aggregate id
-   * @param version - the version
-   * @param timestamp - the timestamp
-   * @param productId - the product id
-   */
-  public ProductRemoved(EventId id, String aggregateId, long version, long timestamp, ProductId productId) {
-    super(id, aggregateId, version, timestamp, EVENT_TYPE);
-    this.payload = new Payload(productId);
-  }
-
   @Override
   public String toString() {
     return String.format("%s{productId=%s}", this.getClass().getSimpleName(), payload.productId);

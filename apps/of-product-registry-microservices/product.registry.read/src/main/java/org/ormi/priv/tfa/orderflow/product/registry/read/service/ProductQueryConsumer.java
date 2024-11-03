@@ -1,6 +1,7 @@
 package org.ormi.priv.tfa.orderflow.product.registry.read.service;
 
 import java.util.Optional;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -19,11 +20,13 @@ import io.quarkus.logging.Log;
 import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.reactive.messaging.pulsar.PulsarIncomingMessageMetadata;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
  * The product query consumer.
  */
+@ApplicationScoped
 public class ProductQueryConsumer {
 
   /**
@@ -44,14 +47,14 @@ public class ProductQueryConsumer {
    */
   @Incoming("product-registry-query")
   @Blocking
-  public void handleQuery(Message<ProductRegistryQuery> msg) {
+  public CompletionStage<Void> handleQuery(Message<ProductRegistryQuery> msg) {
     // Get the correlation id from the message metadata
     final var metadata = msg.getMetadata(PulsarIncomingMessageMetadata.class).orElseThrow();
     final String correlationId = Optional.ofNullable(metadata.getProperty("correlation-id")).orElseThrow();
     // Get the message and its payload
     final ProductRegistryQuery qry = msg.getPayload();
 
-    Uni.createFrom().deferred(() -> {
+    return Uni.createFrom().deferred(() -> {
       if (qry instanceof GetProductById) {
         GetProductById getProductById = (GetProductById) qry;
         return getProductById(getProductById.getProductId());

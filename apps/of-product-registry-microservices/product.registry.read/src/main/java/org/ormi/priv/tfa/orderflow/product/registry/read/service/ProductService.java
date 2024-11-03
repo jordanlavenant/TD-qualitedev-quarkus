@@ -7,6 +7,7 @@ import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.valueobject.ProductId;
 import org.ormi.priv.tfa.orderflow.product.registry.read.projection.repository.ProductRepository;
 import org.ormi.priv.tfa.orderflow.product.registry.read.projection.repository.model.ProductEntity;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
@@ -14,6 +15,7 @@ import jakarta.inject.Inject;
  * 
  * Access the product informations from the database through the repository.
  */
+@ApplicationScoped
 public class ProductService {
 
   /**

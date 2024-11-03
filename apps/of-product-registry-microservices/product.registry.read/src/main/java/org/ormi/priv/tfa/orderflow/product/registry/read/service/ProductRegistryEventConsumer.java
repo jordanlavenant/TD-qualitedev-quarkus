@@ -4,9 +4,11 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.event.ProductRegistryEvent;
 import org.ormi.priv.tfa.orderflow.product.registry.read.projection.ProductRegistryProjector;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+@ApplicationScoped
 public class ProductRegistryEventConsumer {
 
   @Inject

@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'jacoco'
 }
 
@@ -10,7 +10,11 @@ repositories {
 
 dependencies {
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
-    implementation project(':libs-event-sourcing')
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    api project(':libs-event-sourcing')
+
+    // MapStruct build-time annotation processor
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
     testImplementation("${junitJupiterGroupId}:${junitJupiterArtifactId}:${junitJupiterVersion}")
 

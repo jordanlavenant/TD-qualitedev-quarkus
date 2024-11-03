@@ -1,4 +1,4 @@
-package org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.dto.mapper;
+package org.ormi.priv.tfa.orderflow.lib.event.sourcing.aggregate.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
@@ -10,5 +10,10 @@ public class EventIdMapper {
   @Named("eventIdToString")
   public String eventIdToString(EventId eventId) {
     return eventId.getId();
+  }
+
+  @Named("toEventId")
+  public EventId toEventId(String eventId) {
+    return EventId.of(eventId);
   }
 }

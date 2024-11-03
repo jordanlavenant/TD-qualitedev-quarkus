@@ -85,7 +85,7 @@ public class ProductRegistryCommandResource {
         .seeOther(
             uriInfo.getBaseUriBuilder()
                 .path(this.getClass())
-                .path("/events/registered")
+                .path("/events/productRegistered")
                 .queryParam("correlationId", correlationId)
                 .build())
         .build();

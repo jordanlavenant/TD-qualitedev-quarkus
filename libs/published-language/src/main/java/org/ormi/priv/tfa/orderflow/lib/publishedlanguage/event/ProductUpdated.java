@@ -59,24 +59,7 @@ public final class ProductUpdated extends Event implements ProductRegistryEvent 
     super(id, aggregateId, version, timestamp, EVENT_TYPE);
     this.payload = payload;
   }
-
-  /**
-   * Constructor.
-   * 
-   * @param id                 - the event id
-   * @param aggregateId        - the aggregate id
-   * @param version            - the version
-   * @param timestamp          - the timestamp
-   * @param productId          - the product id
-   * @param name               - the name of the product
-   * @param productDescription - the description of the product
-   */
-  public ProductUpdated(EventId id, String aggregateId, long version, long timestamp, ProductId productId, String name,
-      String productDescription) {
-    super(id, aggregateId, version, timestamp, EVENT_TYPE);
-    this.payload = new Payload(productId, name, productDescription);
-  }
-
+  
   @Override
   public String toString() {
     return String.format("%s{productId=%s, name=%s, productDescription=%s}", this.getClass().getSimpleName(),

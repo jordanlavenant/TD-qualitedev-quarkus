@@ -17,6 +17,9 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     implementation project(':libs-published-language')
 
+    // MapStruct build-time annotation processor
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'io.quarkus:quarkus-jacoco'

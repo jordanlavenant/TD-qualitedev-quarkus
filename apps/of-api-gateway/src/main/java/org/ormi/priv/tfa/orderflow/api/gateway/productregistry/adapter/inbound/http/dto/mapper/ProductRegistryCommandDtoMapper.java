@@ -9,6 +9,7 @@ import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.h
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.command.RegisterProduct;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.command.RemoveProduct;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.command.UpdateProduct;
+import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.valueobject.mapper.ProductIdMapper;
 
 @Mapper(uses = {ProductIdMapper.class})
 public interface ProductRegistryCommandDtoMapper {

@@ -265,6 +265,10 @@ Utilisez la version sémantique pour incrémenter les numéros de version.
 
 Vous devez mettre à jour la documentation appropriée dans le monorepo pour refléter les modifications que vous avez apportées.
 
+## Tâche 5bis : Ajouter un diagramme de séquence
+
+Vous devez ajouter un diagramme de séquence pour décrire le flux du flux d'événements dans l'application et matérialiser les opérations et interactions lors de l'ajout d'un produit au registre. Utilisez UML pour décrire le flux d'événements.
+
 ## Tâche 6 : Taguer votre patch
 
 Taguez votre patch avec le numéro de version que vous avez choisi et ajoutez une note de version pour décrire les modifications que vous avez apportées.

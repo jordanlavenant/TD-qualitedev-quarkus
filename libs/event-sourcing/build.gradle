@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'jacoco'
 }
 
@@ -9,6 +9,11 @@ repositories {
 }
 
 dependencies {
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+
+    // MapStruct build-time annotation processor
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
     testImplementation("${junitJupiterGroupId}:${junitJupiterArtifactId}:${junitJupiterVersion}")
 
     testRuntimeOnly("${junitJupiterGroupId}:${junitJupiterArtifactId}-engine:${junitJupiterVersion}")

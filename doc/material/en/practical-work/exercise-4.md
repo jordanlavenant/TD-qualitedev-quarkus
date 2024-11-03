@@ -255,6 +255,10 @@ Use semantic versioning to increment the version numbers.
 
 You must update the appropriate documentation in the monorepo to reflect the changes you have made.
 
+## Task 5bis: Add a sequence diagram
+
+Add a sequence diagram to describe the event stream flow in application and materialize the operations and interactions while adding a product to the registry. Use the UML notation to describe the interactions between the microservices.
+
 ## Task 6: Tag your patch
 
 Tag your patch with the version number you have chosen and add a release note to describe the changes you have made.

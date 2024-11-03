@@ -1,4 +1,4 @@
-package org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.dto.mapper;
+package org.ormi.priv.tfa.orderflow.lib.publishedlanguage.valueobject.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
