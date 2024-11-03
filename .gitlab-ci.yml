@@ -24,7 +24,6 @@ variables:
     - corepack prepare pnpm@latest --activate
     - pnpm config set store-dir .pnpm-store
     - pnpm install --frozen-lockfile
-    - pnpm remove -D @nx/gradle # Remove the gradle plugin due to issues in CI environment
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
 
