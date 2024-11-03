@@ -1,11 +1,51 @@
-# The Docker image that will be used to build your app
-image: node:lts
-# Functions that should be executed before the build script is run
-before_script:
-  - corepack enable pnpm
-  - corepack use pnpm@latest
-  - pnpm install
+stages:
+  - docker
+  - build
+
+variables:
+  GIT_DEPTH: 0
+  DOCKER_PATH: ./ci/docker/.
+  DOCKER_IMAGE: ${CI_REGISTRY_IMAGE}/quali-dev-order-flow-build:1124
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
+.distributed:
+  interruptible: true
+  cache:
+    key:
+      files:
+        - pnpm-lock.json
+    paths:
+      - .pnpm-store/
+      - .nx/
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@latest-8 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+
+docker-prepare:
+  stage: docker
+  image: docker:24.0.5
+  services:
+    - name: docker:24.0.5-dind
+      alias: docker
+  interruptible: true
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker manifest inspect --insecure $DOCKER_IMAGE && (echo "Image already exists - no need to build" ; exit 0 ) || (docker build -t $DOCKER_IMAGE $DOCKER_PATH && docker push $DOCKER_IMAGE);
+
 pages:
+  extends: .distributed
+  stage: build
+  image: $DOCKER_IMAGE
+  before_script:
+    - corepack enable pnpm
+    - corepack use pnpm@latest
+    - pnpm install
   script:
     - pnpm nx run doc-material:build
   artifacts:
