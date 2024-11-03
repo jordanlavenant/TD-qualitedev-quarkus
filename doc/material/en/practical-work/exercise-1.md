@@ -42,7 +42,7 @@ Identify "moving parts" of the application, such as namespaces semantic and code
 
 ::: warning
 This question requires you to make some search and to understand the code structure.
-However, you can also rely on the [project presentation](../project-presentation/) to help you clarify subjects of the question.
+However, you can also rely on the [project presentation](../project-presentation) to help you clarify subjects of the question.
 :::
 
 3. What does the `libs/event-sourcing` library do? How is it used in the microservices (business and code structure relation wise)?
@@ -55,7 +55,7 @@ The order flow application is not yet complete nor fully functional. It is up to
 
 You must identify the quality issues in the order flow application. To achieve this, you must use the following tools:
 - [SonarLint](https://www.sonarlint.org/)
-- Analyse the consistency of the code with the [project presentation](../project-presentation/) and Context mapping
+- Analyse the consistency of the code with the [project presentation](../project-presentation) and Context mapping
 - Verify the semantic of the code with its business declaration and the coding standards
 
 ::: warning

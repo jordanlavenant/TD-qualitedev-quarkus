@@ -42,7 +42,7 @@ Identifiez les "parties mobiles" de l'application, telles que la sémantique des
 
 ::: avertissement
 Cette question nécessite de faire des recherches et de comprendre la structure du code.
-Cependant, vous pouvez également vous appuyer sur la [présentation du projet](../presentation-projet/) pour vous aider à clarifier les sujets de la question.
+Cependant, vous pouvez également vous appuyer sur la [présentation du projet](../presentation-projet) pour vous aider à clarifier les sujets de la question.
 :::
 
 3. Que fait la bibliothèque `libs/event-sourcing` ? Comment est-elle utilisée dans les microservices (relation entre métier et structure du code) ?
@@ -55,7 +55,7 @@ L'application Order flow n'est pas encore complète ni entièrement fonctionnell
 
 Vous devez identifier les problèmes de qualité dans l'application Order flow. Pour ce faire, vous devez utiliser les outils suivants :
 - [SonarLint](https://www.sonarlint.org/)
-- Analyser la cohérence du code avec la [présentation du projet](../presentation-projet/) et la cartographie de contexte
+- Analyser la cohérence du code avec la [présentation du projet](../presentation-projet) et la cartographie de contexte
 - Vérifier la sémantique du code avec sa déclaration métier et les standards de codage
 
 ::: avertissement

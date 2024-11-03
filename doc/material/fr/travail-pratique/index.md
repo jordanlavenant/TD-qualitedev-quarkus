@@ -48,7 +48,7 @@ Les fonctionnalités suivantes sont manquantes dans l'application de flux de com
 ## Travail pratique
 
 ::: warning
-Pour une meilleure compréhension du matériel de travail pratique, consultez d'abord la [présentation du projet](../presentation-projet/).
+Pour une meilleure compréhension du matériel de travail pratique, consultez d'abord la [présentation du projet](../presentation-projet).
 :::
 
 Le travail pratique est divisé en plusieurs exercices qui vous aideront à comprendre l'application de flux de commandes et ses microservices. Vous apprendrez également à améliorer la qualité de la conception et de l'implémentation de l'application.
@@ -64,8 +64,8 @@ Le travail pratique est divisé en plusieurs exercices :
 2. [Exercice 2 : Corriger les problèmes de qualité du microservice de registre de produits](./exercice-2) (2 heures)
 3. [Exercice 3 : Permettre la collaboration en équipe](./exercice-3) (30 min)
 4. [Exercice 4 : Collaborer sur le monorepo](./exercice-4) (2 heures)
-5. [Exercice 5 : Centraliser les journaux et activer la surveillance](./exercice-5) (1 heure)
-6. [Exercice 6 : CI/CD pour la construction de l'application](./exercice-6) (1 heure)
+<!-- 5. [Exercice 5 : Centraliser les journaux et activer la surveillance](./exercice-5) (1 heure)
+6. [Exercice 6 : CI/CD pour la construction de l'application](./exercice-6) (1 heure) -->
 
 <!-- Aller plus loin (optionnel) :
 

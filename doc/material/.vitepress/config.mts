@@ -4,6 +4,8 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Order flow material",
   description: "Material for order flow practical work",
+  outDir: '../../public/material',
+  base: '/thibaud.faurie/quali-dev-order-flow/material/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     search: {
@@ -48,8 +50,8 @@ export default defineConfig({
               { text: 'Exercise 2', link: '/en/practical-work/exercise-2' },
               { text: 'Exercise 3', link: '/en/practical-work/exercise-3' },
               { text: 'Exercise 4', link: '/en/practical-work/exercise-4' },
-              { text: 'Exercise 5', link: '/en/practical-work/exercise-5' },
-              { text: 'Exercise 6', link: '/en/practical-work/exercise-6' },
+              // { text: 'Exercise 5', link: '/en/practical-work/exercise-5' },
+              // { text: 'Exercise 6', link: '/en/practical-work/exercise-6' },
               // { text: 'Exercise 7', link: '/en/practical-work/exercise-7' },
               // { text: 'Exercise 8', link: '/en/practical-work/exercise-8' },
               // { text: 'Exercise 9', link: '/en/practical-work/exercise-9' },
@@ -86,8 +88,8 @@ export default defineConfig({
               { text: 'Exercice 2', link: '/fr/travail-pratique/exercice-2' },
               { text: 'Exercice 3', link: '/fr/travail-pratique/exercice-3' },
               { text: 'Exercice 4', link: '/fr/travail-pratique/exercice-4' },
-              { text: 'Exercice 5', link: '/fr/travail-pratique/exercice-5' },
-              { text: 'Exercice 6', link: '/fr/travail-pratique/exercice-6' },
+              // { text: 'Exercice 5', link: '/fr/travail-pratique/exercice-5' },
+              // { text: 'Exercice 6', link: '/fr/travail-pratique/exercice-6' },
               // { text: 'Exercice 7', link: '/fr/travail-pratique/exercice-7' },
               // { text: 'Exercice 8', link: '/fr/travail-pratique/exercice-8' },
               // { text: 'Exercice 9', link: '/fr/travail-pratique/exercice-9' },

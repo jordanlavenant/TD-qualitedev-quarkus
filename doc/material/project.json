@@ -9,6 +9,13 @@
             "options": {
                 "command": "pnpm vitepress dev doc/material --host 0.0.0.0"
             }
+        },
+        "build": {
+            "executor": "nx:run-commands",
+            "outputs": ["{workspaceRoot}/dist/doc/doc-material"],
+            "options": {
+                "command": "pnpm vitepress build doc/material"
+            }
         }
     }
 }
