@@ -44,6 +44,7 @@ pages:
   stage: build
   image: $DOCKER_IMAGE
   script:
+    - ./gradlew projectReportAll
     - pnpm nx run doc-material:build --verbose
   artifacts:
     paths:
