@@ -3,6 +3,7 @@ stages:
   - build
 
 variables:
+  NX_DAEMON: "false"
   NX_SOCKET_DIR: /tmp/nx-socket
   GIT_DEPTH: 0
   DOCKER_PATH: ./ci/docker/.
