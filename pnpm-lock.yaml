@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@nx/gradle':
-        specifier: 19.5.6
-        version: 19.5.6(nx@19.5.6)
+        specifier: 20.0.7
+        version: 20.0.7(nx@19.5.6)
       '@nx/js':
         specifier: 19.5.6
         version: 19.5.6(@babel/traverse@7.25.9)(@types/node@22.8.6)(nx@19.5.6)(typescript@5.6.3)
@@ -24,7 +24,7 @@ importers:
         specifier: link:@nx/plugin:create-package
         version: link:@nx/plugin:create-package
       vitepress:
-        specifier: ^1.4.1
+        specifier: ^1.4.3
         version: 1.4.3(@algolia/client-search@5.12.0)(@types/node@22.8.6)(axios@1.7.7)(postcss@8.4.47)(search-insights@2.17.2)(typescript@5.6.3)
 
 packages:
@@ -878,8 +878,13 @@ packages:
     peerDependencies:
       nx: '>= 17 <= 20'
 
-  '@nx/gradle@19.5.6':
-    resolution: {integrity: sha512-qbglCs6xRN7hM+o+Fv0alGOKxDj8tLAxq6EANUqZPH+FtY+zx7YVznaf3AEh1lB3DWmIdywXCgHtqry0wQdHjA==}
+  '@nx/devkit@20.0.7':
+    resolution: {integrity: sha512-h+B5S+tkHObtKj2pQYUkbiaiYdcim95iS27CaZgasq7FiIXQOoupQ6jrIKduQJKx+GfYbuCCd60zrAYbkyvxiA==}
+    peerDependencies:
+      nx: '>= 19 <= 21'
+
+  '@nx/gradle@20.0.7':
+    resolution: {integrity: sha512-11UZeo9n2X8vFX80jKHjmpZw+cvaTN8gJ5dFuHxVLPUy4WbqBPdHnfpbzQVEqdRpj1eq5rpV5m9nyU7fog56sg==}
 
   '@nx/js@19.5.6':
     resolution: {integrity: sha512-NNf6Zh4Z8k3dmkXkCUYrReH9ZpdAhvUQjwrWUHtmc5MnWTsQL12a01MwbMi4ReMzDLDjffDXjJFxYmbNYKaRzw==}
@@ -3287,9 +3292,21 @@ snapshots:
       tslib: 2.8.1
       yargs-parser: 21.1.1
 
-  '@nx/gradle@19.5.6(nx@19.5.6)':
+  '@nx/devkit@20.0.7(nx@19.5.6)':
     dependencies:
-      '@nx/devkit': 19.5.6(nx@19.5.6)
+      ejs: 3.1.10
+      enquirer: 2.3.6
+      ignore: 5.3.2
+      minimatch: 9.0.3
+      nx: 19.5.6
+      semver: 7.6.3
+      tmp: 0.2.3
+      tslib: 2.8.1
+      yargs-parser: 21.1.1
+
+  '@nx/gradle@20.0.7(nx@19.5.6)':
+    dependencies:
+      '@nx/devkit': 20.0.7(nx@19.5.6)
     transitivePeerDependencies:
       - nx
 
