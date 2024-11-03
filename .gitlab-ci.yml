@@ -47,7 +47,7 @@ pages:
     - corepack use pnpm@latest
     - pnpm install
   script:
-    - pnpm nx run doc-material:build
+    - pnpm nx run doc-material:build --verbose
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
