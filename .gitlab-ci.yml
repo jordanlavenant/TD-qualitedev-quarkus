@@ -21,6 +21,7 @@ variables:
       - .pnpm-store/
       - .nx/
   before_script:
+    - source $HOME/.sdkman/bin/sdkman-init.sh
     - corepack enable
     - corepack prepare pnpm@latest --activate
     - pnpm config set store-dir .pnpm-store
@@ -44,8 +45,7 @@ pages:
   stage: build
   image: $DOCKER_IMAGE
   script:
-    - ./gradlew projectReportAll
-    - pnpm nx run doc-material:build --verbose
+    - pnpm nx run doc-material:build
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
