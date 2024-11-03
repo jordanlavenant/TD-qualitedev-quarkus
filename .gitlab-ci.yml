@@ -3,6 +3,7 @@ stages:
   - build
 
 variables:
+  NX_DAEMON: false
   GIT_DEPTH: 0
   DOCKER_PATH: ./ci/docker/.
   DOCKER_IMAGE: ${CI_REGISTRY_IMAGE}/quali-dev-order-flow-build:1124
