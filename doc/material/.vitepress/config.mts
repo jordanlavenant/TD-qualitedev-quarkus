@@ -5,7 +5,7 @@ export default defineConfig({
   title: "Order flow material",
   description: "Material for order flow practical work",
   outDir: '../../public/material',
-  base: '/thibaud.faurie/quali-dev-order-flow/material/',
+  base: '/quali-dev-order-flow/material/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     search: {
