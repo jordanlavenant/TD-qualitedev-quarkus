@@ -17,7 +17,7 @@ public interface ProductRegistryEventDtoMapper {
   ProductRegistryEventDtoMapper INSTANCE = Mappers.getMapper(ProductRegistryEventDtoMapper.class);
 
   @Mapping(target = "id", source = "id", qualifiedByName = "eventIdToString")
-  @Mapping(target = "productId", source = "aggregateId")
+  @Mapping(target = "productRegistryId", source = "aggregateId")
   @Mapping(target = "version", source = "version")
   @Mapping(target = "timestamp", source = "timestamp")
   @Mapping(target = "eventType", source = "eventType")
@@ -25,7 +25,7 @@ public interface ProductRegistryEventDtoMapper {
   ProductRegisteredEventDto toDto(ProductRegistered evt);
 
   @Mapping(target = "id", source = "id", qualifiedByName = "eventIdToString")
-  @Mapping(target = "productId", source = "aggregateId")
+  @Mapping(target = "productRegistryId", source = "aggregateId")
   @Mapping(target = "version", source = "version")
   @Mapping(target = "timestamp", source = "timestamp")
   @Mapping(target = "eventType", source = "eventType")
@@ -33,7 +33,7 @@ public interface ProductRegistryEventDtoMapper {
   ProductUpdatedEventDto toDto(ProductUpdated evt);
 
   @Mapping(target = "id", source = "id", qualifiedByName = "eventIdToString")
-  @Mapping(target = "productId", source = "aggregateId")
+  @Mapping(target = "productRegistryId", source = "aggregateId")
   @Mapping(target = "version", source = "version")
   @Mapping(target = "timestamp", source = "timestamp")
   @Mapping(target = "eventType", source = "eventType")

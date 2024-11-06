@@ -2,7 +2,7 @@ package org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.
 
 public abstract class ProductRegistryEventDto {
   public String id;
-  public String productId;
+  public String productRegistryId;
   public long version;
   public long timestamp;
   public String eventType;

@@ -1,5 +1,7 @@
 package org.ormi.priv.tfa.orderflow.product.registry.service.producer;
 
+import java.util.concurrent.CompletionStage;
+
 import org.apache.pulsar.client.api.Producer;
 import org.apache.pulsar.client.api.PulsarClientException;
 import org.apache.pulsar.client.api.Schema;
@@ -18,7 +20,8 @@ import jakarta.inject.Inject;
 
 /**
  * The product registry event producer.
- * Produces events to the product registry event channel so it can be watched on other services.
+ * Produces events to the product registry event channel so it can be watched on
+ * other services.
  */
 @ApplicationScoped
 public class ProductRegistryEventEmitter {
@@ -86,22 +89,24 @@ public class ProductRegistryEventEmitter {
    */
   public void sink(String correlationId, ProductRegistryEvent event) {
     // Get the producer for the correlation id
-    final Producer<ProductRegistryEvent> producer = getEventSinkByCorrelationId(correlationId);
-    // Sink the event
-    producer
-        .newMessage()
-        .value(event)
-        .sendAsync()
-        .whenComplete((msgId, ex) -> {
-          if (ex != null) {
-            throw new RuntimeException("Failed to produce event for correlation id: " + correlationId, ex);
-          }
-          Log.debug(String.format("Sinked event with correlation id{%s}", correlationId));
-          try {
-            producer.close();
-          } catch (PulsarClientException e) {
-            throw new RuntimeException("Failed to close producer", e);
-          }
+    getEventSinkByCorrelationId(correlationId)
+        .thenAccept((producer) -> {
+          // Sink the event
+          producer
+              .newMessage()
+              .value(event)
+              .sendAsync()
+              .whenComplete((msgId, ex) -> {
+                if (ex != null) {
+                  throw new RuntimeException("Failed to produce event for correlation id: " + correlationId, ex);
+                }
+                Log.debug(String.format("Sinked event with correlation id{%s} in msg{%s}", correlationId, msgId));
+                try {
+                  producer.close();
+                } catch (PulsarClientException e) {
+                  throw new RuntimeException("Failed to close producer", e);
+                }
+              });
         });
   }
 
@@ -111,18 +116,18 @@ public class ProductRegistryEventEmitter {
    * @param correlationId - the correlation id
    * @return the producer
    */
-  private Producer<ProductRegistryEvent> getEventSinkByCorrelationId(String correlationId) {
-    try {
-      // Define the channel name, topic and schema definition
-      final String channelName = ProductRegistryEventChannelName.PRODUCT_REGISTRY_EVENT.toString();
-      final String topic = channelName + "-" + correlationId;
-      // Create and return the producer
-      return pulsarClients.getClient(channelName)
-          .newProducer(Schema.JSON(ProductRegistryEvent.class))
-          .topic(topic)
-          .create();
-    } catch (PulsarClientException e) {
-      throw new RuntimeException("Failed to create producer for correlation id: " + correlationId, e);
-    }
+  private CompletionStage<Producer<ProductRegistryEvent>> getEventSinkByCorrelationId(String correlationId) {
+    // Define the channel name, topic and schema definition
+    final String channelName = ProductRegistryEventChannelName.PRODUCT_REGISTRY_EVENT.toString();
+    final String topic = channelName + "-" + correlationId;
+    // Create and return the producer
+    return pulsarClients.getClient(channelName)
+        .newProducer(Schema.JSON(ProductRegistryEvent.class))
+        .producerName(topic)
+        .topic(topic)
+        .createAsync()
+        .exceptionally(ex -> {
+          throw new RuntimeException("Failed to create producer for correlation id: " + correlationId, ex);
+        });
   }
 }

@@ -1,6 +1,7 @@
 package org.ormi.priv.tfa.orderflow.product.registry.read.service;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
@@ -65,14 +66,15 @@ public class ProductQueryConsumer {
       return Uni.createFrom().failure(new IllegalArgumentException("Unknown query type"));
     })
     .subscribeAsCompletionStage()
-    .thenCompose(result -> {
+    .thenAccept(result -> {
       // Sink the result on correlated bus
       resultEmitter.sink(correlationId, result);
-      return msg.ack();
+      msg.ack();
     }).exceptionallyCompose(e -> {
       // Log error and nack message
       Log.error("Failed to handle query", e);
-      return msg.nack(e);
+      msg.nack(e);
+      return CompletableFuture.failedFuture(e);
     });
   }
 

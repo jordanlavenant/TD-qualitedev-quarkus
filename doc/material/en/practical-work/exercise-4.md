@@ -68,59 +68,66 @@ To achieve this, you must (Example with Product Registry):
 - Make use of the `ProductRegistryEventConsumer` to add event stream publication the same way it was achieved on the write side before: you can then simply gather the `ProductRegistryEventEmitter` old logic and put it in the right namespace and method under the read side microservice.
 
 ::: code-group
-```java:line-numbers=38 {5} [ProductRegistryCommandConsumer.java]
-return registry.handle(cmd)
+```java:line-numbers=70 {5} [ProductRegistryCommandConsumer.java]
+return loadRegistry().handle(cmd)
     .subscribeAsCompletionStage()
-    .thenCompose(evt -> {
-      // Produce event on shared bus
-      eventProducer.produce(correlationId, evt);
-      return msg.ack();
+    .thenAccept(evt -> {
+      // Produce event on correlated bus
+      eventProducer.sink(correlationId, evt);
+      Log.debug(String.format("Acknowledge command: %s", cmd.getClass().getName()));
+      msg.ack();
     }).exceptionallyCompose(e -> {
-      Log.error("Failed to handle command", e);
-      return msg.nack(e);
+      // Log error and nack message
+      Log.error(String.format("Failed to handle command: %s", e.getMessage()));
+      msg.nack(e);
+      return CompletableFuture.failedFuture(e);
     });
 ```
-```java:line-numbers=28 [ProductRegistryEventProducer.java]
+```java:line-numbers=84 [ProductRegistryEventEmitter.java]
 /**
  * Produce the given event with the given correlation id.
  * 
  * @param correlationId - the correlation id
- * @param event - the event
+ * @param event         - the event
  */
-public void produce(String correlationId, ProductRegistryEvent event) {
+public void sink(String correlationId, ProductRegistryEvent event) {
   // Get the producer for the correlation id
-  final Producer<ProductRegistryEvent> producer = getEventProducerByCorrelationId(correlationId);
-  // Produce the event
-  producer.sendAsync(event)
-    .whenComplete((msgId, ex) -> {
-      if (ex != null) {
-        throw new RuntimeException("Failed to produce event for correlation id: " + correlationId, ex);
-      }
-      Log.debug("Sinked event with correlation id: " + correlationId);
-      try {
-        producer.close();
-      } catch (PulsarClientException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-    });
+  getEventSinkByCorrelationId(correlationId)
+      .thenAccept((producer) -> {
+        // Sink the event
+        producer
+            .newMessage()
+            .value(event)
+            .sendAsync()
+            .whenComplete((msgId, ex) -> {
+              if (ex != null) {
+                throw new RuntimeException("Failed to produce event for correlation id: " + correlationId, ex);
+              }
+              Log.debug(String.format("Sinked event with correlation id{%s} in msg{%s}", correlationId, msgId));
+              try {
+                producer.close();
+              } catch (PulsarClientException e) {
+                throw new RuntimeException("Failed to close producer", e);
+              }
+            });
+      });
 }
 ```
-```java:line-numbers=93 {106} [ProductRegistryCommandResource.java]
+```java:line-numbers=94 {14} [ProductRegistryCommandResource.java]
 /**
- * Endpoint to stream product registry events.
+ * Endpoint to stream product registry registered events.
  * 
  * @param correlationId - correlation id to use for the consumer
  * @return Multi of product registry events
  */
 @GET
-@Path("/events/registered")
+@Path("/events/productRegistered")
 @RestStreamElementType(MediaType.APPLICATION_JSON)
-public Multi<ProductRegisteredEventDto> registerEventStream(@QueryParam("correlationId") String correlationId) {
+public Multi<ProductRegisteredEventDto> registeredEventStream(@QueryParam("correlationId") String correlationId) {
   // Create a stream of product registry events
   return Multi.createFrom().emitter(em -> {
     // Create consumer for product registry events with the given correlation id
-    final Consumer<ProductRegistryEvent> consumer = createEventsConsumerByCorrelationId(correlationId);
+    final Consumer<ProductRegistryEvent> consumer = getEventsConsumerByCorrelationId(correlationId);
     // Close the consumer on termination
     em.onTermination(() -> {
       try {
@@ -133,8 +140,8 @@ public Multi<ProductRegisteredEventDto> registerEventStream(@QueryParam("correla
     CompletableFuture.runAsync(() -> {
       while(!em.isCancelled()) {
         try {
-          final var timeout = 10;
-          final var msg = Optional.ofNullable(consumer.receive(timeout, TimeUnit.SECONDS));
+          final var timeout = 10000;
+          final var msg = Optional.ofNullable(consumer.receive(timeout, TimeUnit.MILLISECONDS));
           if (msg.isEmpty()) {
             // Complete the emitter if no event is received within the timeout. Free up resources.
             Log.debug("No event received within timeout of " + timeout + " seconds.");

@@ -1,6 +1,7 @@
 package org.ormi.priv.tfa.orderflow.product.registry.service.consumer;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -68,15 +69,16 @@ public class ProductRegistryCommandConsumer {
     // Handle the command
     return loadRegistry().handle(cmd)
         .subscribeAsCompletionStage()
-        .thenCompose(evt -> {
+        .thenAccept(evt -> {
           // Produce event on correlated bus
           eventProducer.sink(correlationId, evt);
           Log.debug(String.format("Acknowledge command: %s", cmd.getClass().getName()));
-          return msg.ack();
+          msg.ack();
         }).exceptionallyCompose(e -> {
           // Log error and nack message
           Log.error(String.format("Failed to handle command: %s", e.getMessage()));
-          return msg.nack(e);
+          msg.nack(e);
+          return CompletableFuture.failedFuture(e);
         });
   }
 }

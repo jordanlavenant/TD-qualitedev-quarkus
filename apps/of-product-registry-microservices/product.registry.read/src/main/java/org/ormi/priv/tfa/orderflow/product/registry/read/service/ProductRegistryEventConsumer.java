@@ -19,6 +19,6 @@ public class ProductRegistryEventConsumer {
   public void handleEvent(ProductRegistryEvent event) {
     // Project the event
     projector.handleEvent(event);
-    // TODO: Sink the event here once projection processed
+    // TODO: Sink the event here once or while projection is processed
   }
 }

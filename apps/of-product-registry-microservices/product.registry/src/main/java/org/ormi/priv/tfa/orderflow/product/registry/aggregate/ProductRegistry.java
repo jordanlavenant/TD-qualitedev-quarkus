@@ -87,7 +87,6 @@ public class ProductRegistry {
    * 
    * @param event the event to apply
    */
-  @Transactional(value = TxType.REQUIRED)
   public void apply(ProductRegistryEvent event) {
     Log.debug("Applying event: " + event.getClass().getName());
     if (event instanceof ProductRegistered registered) {
