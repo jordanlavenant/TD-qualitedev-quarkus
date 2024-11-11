@@ -1,4 +1,5 @@
 # Exercice 5 des Travaux Pratiques : Centraliser les logs et activer le monitoring
+
 Le but de cet exercice est de vous montrer comment centraliser les logs et activer le monitoring dans l'application order flow.
 
 L'observabilité est un aspect clé du développement logiciel. Elle vous permet de comprendre le comportement de votre application et de détecter rapidement les problèmes. La centralisation des journaux et l'activation de la surveillance sont deux aspects importants de l'observabilité parce qu'ils vous donnent un aperçu du comportement de votre application de manière centralisée sans dépendre de plusieurs sources, outils ou interfaces utilisateur.

@@ -1,4 +1,4 @@
-# Order flow project presentation
+# Présentation du projet Order flow
 
 Ce document présente le projet order flow. Il décrit le contexte, les objectifs et le but du projet.
 
