@@ -64,8 +64,8 @@ The practical work is divided into the following exercises:
 2. [Exercise 2: Fix quality issues of the product registry microservice](./exercise-2) (2 hours)
 3. [Exercise 3: Enable team collaboration](./exercise-3) (30 min)
 4. [Exercise 4: Collaborate on the monorepo](./exercise-4) (2 hours)
-<!-- 5. [Exercise 5: Centralize logs and enable monitoring](./exercise-5) (1 hour)
-6. [Exercise 6: CI/CD for application building](./exercise-6) (1 hour) -->
+5. [Exercise 5: Centralize logs and enable monitoring](./exercise-5) (1 hour)
+<!-- 6. [Exercise 6: CI/CD for application building](./exercise-6) (1 hour) -->
 
 <!-- Going further (optional):
 

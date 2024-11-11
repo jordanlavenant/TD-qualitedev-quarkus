@@ -64,8 +64,8 @@ Le travail pratique est divisé en plusieurs exercices :
 2. [Exercice 2 : Corriger les problèmes de qualité du microservice de registre de produits](./exercice-2) (2 heures)
 3. [Exercice 3 : Permettre la collaboration en équipe](./exercice-3) (30 min)
 4. [Exercice 4 : Collaborer sur le monorepo](./exercice-4) (2 heures)
-<!-- 5. [Exercice 5 : Centraliser les journaux et activer la surveillance](./exercice-5) (1 heure)
-6. [Exercice 6 : CI/CD pour la construction de l'application](./exercice-6) (1 heure) -->
+5. [Exercice 5 : Centraliser les journaux et activer la surveillance](./exercice-5) (1 heure)
+<!-- 6. [Exercice 6 : CI/CD pour la construction de l'application](./exercice-6) (1 heure) -->
 
 <!-- Aller plus loin (optionnel) :
 

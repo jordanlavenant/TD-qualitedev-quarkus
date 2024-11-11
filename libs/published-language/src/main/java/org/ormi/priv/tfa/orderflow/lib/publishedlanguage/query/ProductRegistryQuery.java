@@ -2,7 +2,6 @@ package org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query;
 
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.GetProductById.GetProductByIdResult;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.GetProducts.GetProductsResult;
-import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.model.ProductNotFound;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

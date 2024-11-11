@@ -174,7 +174,7 @@ public Multi<ProductRegisteredEventDto> registeredEventStream(@QueryParam("corre
 ```
 :::
 
-## Task 2bis: Read timeout and read endpoint refactoring
+## Task 2a: Read timeout and read endpoint refactoring
 
 You may have noticed that the read endpoint on API Gateway does have an hard coded timeout. You must add a timeout an application property to the read endpoint on API Gateway to allow the setting of timeout via configuration (cf [Quarkus application configuration](https://quarkus.io/guides/config#inject-the-configuration)).
 
@@ -262,7 +262,7 @@ Use semantic versioning to increment the version numbers.
 
 You must update the appropriate documentation in the monorepo to reflect the changes you have made.
 
-## Task 5bis: Add a sequence diagram
+## Task 5a: Add a sequence diagram
 
 Add a sequence diagram to describe the event stream flow in application and materialize the operations and interactions while adding a product to the registry. Use the UML notation to describe the interactions between the microservices.
 

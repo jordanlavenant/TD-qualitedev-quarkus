@@ -79,7 +79,7 @@ public Payload payload; // Should be changed to private and have accessors
 Verify that this operation does not brake mappers.
 :::
 
-## Task 4.1: Public fields on Panache entities
+## Task 4a: Public fields on Panache entities
 
 SonarLint may report warnings about public fields on [Panache](https://quarkus.io/guides/mongodb-panache) entities. Determine if the warnings are relevant and justify your answer.
 
