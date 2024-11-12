@@ -42,9 +42,8 @@ Applications :
   - `product.registry.read` : the read microservice, handling product registry queries
 
 Libraries :
-- `libs/event-sourcing` : the core business package, containing the core business logic
-- `libs/infrastructure` : the infrastructure package, containing the infrastructure logic
-- `libs/shared` : the common package, containing common business logic
+- `libs/event-sourcing` : a library exposing utilities for event sourcing and typings
+- `libs/published-language` : a library exposing the bounded contexts published languages
 
 ## Features
 
