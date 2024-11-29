@@ -145,7 +145,7 @@ Faites également attention à traiter tous les problèmes signalés par SonarLi
 
 
 > Exemple de diagramme de séquence d'integration pour la création d'un produit :  
-![Image](sequence.png)
+![Image](assets/sequence.png)
 
 * `ProductRegistryService` : Différencier une erreur technique d'une erreur métier. Dans ce fichier de service (logique métier, on renvoie des exceptions)
 
