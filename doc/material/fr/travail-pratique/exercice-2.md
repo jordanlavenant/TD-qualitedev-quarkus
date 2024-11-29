@@ -70,6 +70,9 @@ public static class Payload { // Convert to record
 ```
 :::
 
+Convertir les classes en records permet de rendre les attributs immuables, permettant ainsi de garantir que les instances de ces classes ne peuvent pas être modifiées après leur création.
+
+
 ## Tâche 4 : Modifier les Entités (couche de persistance) pour utiliser des champs privés avec des accesseurs
 
 Le microservice du registre de produits utilise des entités pour persister les événements. Vous devez modifier les entités pour utiliser des champs privés avec des accesseurs pour améliorer la qualité du code.
