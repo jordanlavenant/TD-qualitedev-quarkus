@@ -7,6 +7,7 @@ import org.apache.pulsar.client.api.PulsarClientException;
 import org.apache.pulsar.client.api.Schema;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.ProductRegistryQuery.ProductRegistryQueryResult;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.config.ProductRegistryQueryChannelName;
+import org.ormi.priv.tfa.orderflow.product.registry.read.service.exception.ProductQueryException;
 
 import io.quarkus.logging.Log;
 import io.smallrye.reactive.messaging.pulsar.PulsarClientService;
@@ -31,14 +32,14 @@ public class ProductQueryResultEmitter {
               .sendAsync()
               .whenComplete((msgId, ex) -> {
                 if (ex != null) {
-                  throw new RuntimeException("Failed to send message", ex);
+                  throw new ProductQueryException("Failed to send message", ex);
                 }
                 Log.debug(String.format("Sinked result with correlation id{%s}", correlationId));
                 try {
                   producer.flush();
                   producer.close();
                 } catch (PulsarClientException e) {
-                  throw new RuntimeException("Failed to close producer", e);
+                  throw new ProductQueryException("Failed to close producer", e);
                 }
               });
         });
@@ -64,7 +65,7 @@ public class ProductQueryResultEmitter {
         .createAsync()
         .exceptionally(
             ex -> {
-              throw new RuntimeException("Failed to create producer for correlation id: " + correlationId, ex);
+              throw new ProductQueryException("Failed to create producer for correlation id: " + correlationId, ex);
             });
   }
 }

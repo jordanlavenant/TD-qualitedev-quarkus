@@ -21,6 +21,7 @@ import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.h
 import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.dto.UpdateProductCommandDto;
 import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.dto.mapper.ProductRegistryCommandDtoMapper;
 import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.dto.mapper.ProductRegistryEventDtoMapper;
+import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.resource.exception.ProductPulsarClientException;
 import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.resource.exception.ProductRegistryEventStreamException;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.command.ProductRegistryCommand;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.command.RegisterProduct;
@@ -335,7 +336,7 @@ public class ProductRegistryCommandResource {
           .topic(topic)
           .subscribe();
     } catch (PulsarClientException e) {
-      throw new RuntimeException("Failed to create consumer for product registry events.", e);
+      throw new ProductPulsarClientException("Failed to create consumer for product registry events.", e);
     }
   }
 }

@@ -10,6 +10,7 @@ import org.apache.pulsar.client.api.Schema;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Message;
+import org.ormi.priv.tfa.orderflow.api.gateway.productregistry.adapter.inbound.http.resource.exception.ProductPulsarClientException;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.GetProductById;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.GetProducts;
 import org.ormi.priv.tfa.orderflow.lib.publishedlanguage.query.ProductRegistryQuery;
@@ -171,7 +172,7 @@ public class ProductRegistryQueryResource {
           .subscriptionName(topic)
           .subscribe();
     } catch (PulsarClientException e) {
-      throw new RuntimeException("Failed to create consumer for correlationId: " + correlationId, e);
+      throw new ProductPulsarClientException("Failed to create consumer for correlationId: " + correlationId, e);
     }
   }
 }

@@ -14,11 +14,8 @@ Le microservice de registre de produits est un microservice côté écriture qui
 
 Le microservice n'est pas complètement documenté. Vous devez compléter les commentaires et la Javadoc du microservice.
 
-
-```bash
-# ./apps/of-product-registry-microservices
-javadoc -d docs -sourcepath ./ -subpackages .
-```
+_Aperçu du commit associé à la javadoc :_
+![Image](javadoc.png)
 
 ## Tâche 2 : Corriger les RuntimeException paresseuses
 
@@ -41,6 +38,8 @@ try {
 }
 ```
 :::
+
+On peut remplacer les exceptions `RuntimeException` par des exceptions plus spécifiques en créant nos propres classes d'exception personnalisées.
 
 ## Tâche 3 : Convertir les payloads des Entités (couche de persistance) en records
 
