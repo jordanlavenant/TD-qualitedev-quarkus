@@ -26,6 +26,11 @@ public class ProductRegisteredEventEntity extends ProductRegistryEventEntity {
    */
   public Payload payload;
 
+  /**
+   * Get the event type.
+   * 
+   * @return The event type.
+   */
   @Override
   public String getEventType() {
     return EVENT_TYPE;

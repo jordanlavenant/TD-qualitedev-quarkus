@@ -14,6 +14,12 @@ Le microservice de registre de produits est un microservice côté écriture qui
 
 Le microservice n'est pas complètement documenté. Vous devez compléter les commentaires et la Javadoc du microservice.
 
+
+```bash
+# ./apps/of-product-registry-microservices
+javadoc -d docs -sourcepath ./ -subpackages .
+```
+
 ## Tâche 2 : Corriger les RuntimeException paresseuses
 
 Les RuntimeException ne sont pas recommandées car elles sont trop génériques. Vous devez remplacer les RuntimeException paresseuses par des exceptions plus spécifiques.

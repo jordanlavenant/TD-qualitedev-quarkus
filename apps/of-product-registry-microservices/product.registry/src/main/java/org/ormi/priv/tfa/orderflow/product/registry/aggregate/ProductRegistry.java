@@ -41,6 +41,9 @@ public class ProductRegistry {
 
   /**
    * Default constructor.
+   * 
+   * @param productRegistryService - Product registry service to interact with the
+   *                               registry and persistance layer.
    */
   public ProductRegistry(ProductRegistryService productRegistryService) {
     this.productRegistryService = productRegistryService;

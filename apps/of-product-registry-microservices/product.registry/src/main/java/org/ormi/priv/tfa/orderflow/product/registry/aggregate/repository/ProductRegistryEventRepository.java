@@ -15,11 +15,23 @@ public class ProductRegistryEventRepository
     implements EventStore<ProductRegistryEventEntity>,
     PanacheMongoRepository<ProductRegistryEventEntity> {
 
+  /**
+   * Save the event.
+   * 
+   * @param event The event to save.
+   */
   @Override
   public void saveEvent(ProductRegistryEventEntity event) {
     persist(event);
   }
 
+  /**
+   * Find the events for the aggregate root id.
+   * 
+   * @param aggregateRootId The aggregate root id.
+   * @param startingVersion The starting version.
+   * @return The events for the aggregate root id.
+   */
   @Override
   public List<ProductRegistryEventEntity> findEventsByAggregateRootIdAndStartingVersion(String aggregateRootId,
       long startingVersion) {

@@ -5,6 +5,9 @@
   "github.copilot.enable": {
     "markdown": true
   },
+  "command-runner.commands": {
+    "SonarLint Analyze All": "find . -name '*.java' | xargs -n 1 code --wait"
+  },
   "plantuml.render": "PlantUMLServer",
   "plantuml.server": "https://www.plantuml.com/plantuml",
   "java.configuration.updateBuildConfiguration": "automatic",

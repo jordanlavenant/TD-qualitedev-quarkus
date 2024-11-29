@@ -59,6 +59,11 @@ public class Product {
     return productDescription;
   }
 
+  /**
+   * Get the string representation of the product
+   * 
+   * @return the string representation
+   */
   @Override
   public String toString() {
     return "Product{" +
@@ -68,6 +73,12 @@ public class Product {
       '}';
   }
 
+  /**
+   * Compare two products for equality
+   * 
+   * @param o - The other product to compare to
+   * @return true if the products are equal, false otherwise
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -77,6 +88,11 @@ public class Product {
     return productId.equals(other.productId);
   }
 
+  /**
+   * Get the hash code of the product
+   * 
+   * @return the hash code
+   */
   @Override
   public int hashCode() {
     return productId.hashCode();

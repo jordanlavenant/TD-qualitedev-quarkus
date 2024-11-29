@@ -50,6 +50,7 @@ public class ProductRegistryService {
    * This method will load all events from the event store and apply them to the
    * product registry starting from the last known version.
    * 
+   * @param registry - The product registry to load the events into.
    * @return The product registry.
    */
   public ProductRegistry loadProductRegistry(ProductRegistry registry) {
@@ -75,6 +76,7 @@ public class ProductRegistryService {
   /**
    * Handle the register command, save and return an event.
    * 
+   * @param registry        - The product registry.
    * @param registerProduct - The register product command.
    * @return The product registered event.
    */
@@ -109,6 +111,7 @@ public class ProductRegistryService {
   /**
    * Handle the update command, save and return an event.
    * 
+   * @param registry      - The product registry.
    * @param updateProduct - The update product command.
    * @return The product updated event.
    */
@@ -145,6 +148,7 @@ public class ProductRegistryService {
   /**
    * Handle the remove command, save and return an event.
    * 
+   * @param registry      - The product registry.
    * @param removeProduct - The remove product command.
    * @return The product removed event.
    */

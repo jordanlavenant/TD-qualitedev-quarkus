@@ -16,13 +16,46 @@ L'application Order flow est un ensemble de microservices qui doivent implément
 
 *astuce* : Consultez les fichiers de cartographie de contexte dans le dossier `doc`.
 
+Les principaux domaines sont `SUPPORTING_DOMAIN` et `GENERIC_SUBDOMAIN`.
+
+Lorsqu'on souhaite supporter nos `CORE_DOMAIN`, on doit créer des `SUPPORTING_DOMAIN` pour consolider les existantes. Or, si nous souhaitons utiliser des domaines déjà utilisés, on doit les regrouper dans un `GENERIC_SUBDOMAIN`.
+
 2. Comment les microservices sont-ils conçus pour implémenter les domaines métiers ?
 
 *astuce* : Consultez l'architecture des microservices et les noms des packages dans les dossiers `apps` et `libs`.
 
+Les microservices sont conçus cloisonnés par domaine métier (concentré sur une fonctionnalités). 
+
+_Exemple:_ Registre de gestion des produits
+
+Chaque microservice est responsable d'un domaine métier. 
+
+Cela permet lors du développement de se concentrer sur un seul domaine métier, sans influer sur les autres domaines métiers.
+Cela permet également une meilleure scabilité horizontale.
+
 3. Quelles sont les responsabilités des conteneurs de code `apps/of-api-gateway`, `apps/of-product-registry-microservices/product.registry`, `apps/of-product-registry-microservices/product.registry.read`, `libs/event-sourcing`, `libs/published-language` ?
 
 *astuce* : Vous pouvez observer les fichiers de cartographie de contexte dans le dossier `doc` ainsi qu'interpréter le code dans les dossiers `apps` et `libs`.
+
+Les conteneurs de code sont responsables de l'implémentation des domaines métiers, indépendamment des autres domaines.
+
+Ils dialoguent entre requêtes HTTP, avant qu'elles soient parsées et placé dans un message. Ce message est placé dans un _topic_, avant de l'envoyer sur l'api gateway.
+
+Ainsi, les microserices peuvent s'abonner à des canaux de communications pour recevoir les messages, grpace à un _bus de messages (Message Broker)_.
+
+Le _Message Broker_ se charge de **centraliser** les messages, et de les **distribuer** aux microservices abonnés.
+
+Ainsi, les publishers publie des messages sur un _topic_, et les subscribers s'abonnent à un _topic_ pour recevoir les messages.
+
+Conteneurs de codes :
+
+* **product.registry** : microservice responsable de la gestion des produits, ainsi que les mutations de ces produits.
+
+* **product.registry.read** : microservice responsable de la lecture des produits.
+
+* **event-sourcing** : Il permet d'enregistrer les transitions d'états d'une entitée dans le temps, il conserve un historique pour ordonner l'entité. Ces événements sont stockés en base de données.
+
+* **published-language** : Sert à définir les entités par contexte, afin que tous les microservices puissent les comprendre, et s'en servir.
 
 ## Tâche 2 : Identifier les concepts principaux
 
@@ -33,6 +66,11 @@ Vous devez identifier les concepts principaux utilisés dans l'application Order
 ## Tâche 2 : Questions
 
 1. Quels sont les concepts principaux utilisés dans l'application Order flow ?
+
+* Matéralisation des logiques métiers
+* Enregistrements des événements (transitions entres les états)
+* Architecture des évènements
+* Ségrégation des responsabilités entre les commandes, et les queries
 
 2. Comment les concepts principaux sont-ils implémentés dans les microservices ?
 
@@ -45,9 +83,21 @@ Cette question nécessite de faire des recherches et de comprendre la structure 
 Cependant, vous pouvez également vous appuyer sur la [présentation du projet](../presentation-projet) pour vous aider à clarifier les sujets de la question.
 :::
 
+Technologies utilisées :
+
+* **Quarkus** : framework Java (gestion des microservices, couche applicatives, requêtes HTTP)
+* **Pulsar** : Lien entres les microservices, pour qu'ils soient découplés (Message Broker)
+* **event-sourcing** : enregistrement des événements
+* **MongoDB** : gestion de persistance
+* **Gradle** : gestion de dépendances
+
 3. Que fait la bibliothèque `libs/event-sourcing` ? Comment est-elle utilisée dans les microservices (relation entre métier et structure du code) ?
 
+...
+
 4. Comment l'implémentation actuelle de l'event-sourcing assure-t-elle la fiabilité des états internes de l'application ?
+
+L'**agrégat ID** et son sa **version** associée, permet de garantir l'ordonnancement des événements. Ainsi, les événements sont stockés dans l'ordre, et sont traités dans l'ordre.
 
 ## Tâche 3 : Identifier les problèmes de qualité
 
@@ -70,3 +120,35 @@ Vous pouvez appeler le professeur si vous avez besoin d'aide pour identifier les
 Vous pouvez ajuster la configuration de SonarLint pour correspondre aux standards de codage du projet (par exemple, indentation, conventions de nommage, etc.). Le dépôt du projet repose sur Quarkus et cela implique certains standards de codage spécifiques.
 Faites également attention à traiter tous les problèmes signalés par SonarLint, même s'ils ne sont pas directement liés à la qualité du code (une explication peut être suffisante dans certains cas).
 :::
+
+* Attributs en public dans les classes, ce qui peut être dangereux pour la sécurité. Il faudrait faire des accesseurs pour les attributs, et ainsi les rendre privés. 
+
+> On pourrait également utiliser des `Record` (Java 17+) pour les classes immuables, ce qui rend les champs privés et final par défaut.
+
+* `ProductRegistryQueryResource` : Exception non catché, ce qui peut provoquer des erreurs non gérées avec l'utilisation d'exceptions génériques
+
+* Déclarer les constantes dans un fichiers de configuration, pour éviter les valeurs en dur dans le code, et de les répéter.
+
+* `ProductRegistryEventEntity` : l'ORM `panache` impose que les objets soient des entités, et que leurs champs associés soient en public. 
+
+> Ainsi il faut mettre une exception à _Sonarlint_ pour ne pas avoir de warning.
+
+* De même, cette classe n'a pas de _Javadoc_ pour expliquer les champs, et les méthodes. 
+
+> Manque de commentaires global sur le code.
+
+* Manque de tests unitaires, et de tests d'intégration.
+
+> Ainsi il n'y a pas de moyen de vérifier que l'application n'a pas de régression après les ajouts de fonctionnalités.
+
+> On place les tests unitaires sur les fonctions métiers
+
+
+> Exemple de diagramme de séquence d'integration pour la création d'un produit :  
+![Image](sequence.png)
+
+* `ProductRegistryService` : Différencier une erreur technique d'une erreur métier. Dans ce fichier de service (logique métier, on renvoie des exceptions)
+
+**Erreur techniques :** effets de bords, et proviennent de l'extérieur
+
+**Erreur métier :** proviennent de la logique métier, et sont gérées par le service

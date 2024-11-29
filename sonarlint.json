@@ -1,0 +1,7 @@
+{
+  "sonarlint.exclude": [
+    "**/target/**",
+    "**/node_modules/**",
+    "**/build/**"
+  ]
+}
