@@ -102,7 +102,7 @@ Vérifiez que cette opération ne casse pas les mappers.
 
 _Aperçu du commit relatif à la modification des entités pour utiliser des champs privés avec des accesseurs :_
 
-> [Lien du commit]()
+> [Lien du commit](https://github.com/jordanlavenant/TD-qualitedev-quarkus/commit/a6f8a3ccc2b27209fc3d73ed840a066fb1db0cc0)
 
 ![Image](assets/private.png)
 
@@ -110,6 +110,15 @@ _Aperçu du commit relatif à la modification des entités pour utiliser des cha
 ## Tâche 4.1 : Champs publics sur les entités Panache
 
 SonarLint peut signaler des avertissements concernant les champs publics sur les entités [Panache](https://quarkus.io/guides/mongodb-panache). Déterminez si les avertissements sont pertinents et justifiez votre réponse.
+
+Exemple d'avertissement de SonarLint (SonarQube) :
+
+![Image](assets/warning.png)
+
+Ces avertissements sont pertinents car on constate que le principe d'encapsulation n'est pas respecté. En effet, les champs publics ne sont pas recommandés car ils ne protègent pas les données de l'entité. Il est préférable d'utiliser des champs privés avec des accesseurs pour garantir l'encapsulation des données.
+
+Cela permet de pouvoir contrôler les données, leurs sécurités et leurs intégrités. De plus, cela permet de garantir que les données ne sont pas modifiées de manière inattendue.
+
 
 ## Tâche 5 : Corriger les erreurs et avertissements signalés par SonarLint
 
