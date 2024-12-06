@@ -126,6 +126,16 @@ Si ce n'est pas déjà fait, installez SonarLint dans votre IDE. Analysez le mic
 
 Faites attention à ne traiter que les problèmes nécessaires. Par exemple, vous pouvez ignorer les avertissements `field level injection` en raison des standards de Quarkus (cf [documentation Quarkus](https://quarkus.io/guides/cdi#what-does-a-bean-look-like)).
 
+> [Lien du commit](https://github.com/jordanlavenant/TD-qualitedev-quarkus/commit/b1b20d7559286318ae3e959781046257ee8b3369)
+
+Les erreurs et avertissements signalés par SonarQube s'articulaient principalement sur des erreurs de syntaxe (braces en trop), des redondance de `Log.debug`, ayant la même valeur que le message de log, ou encore des attributs publics.
+
+Exemples de correction apportées :
+
+![Image](assets/fixes1.png)
+
+![Image](assets/fixes2.png)
+
 ## Tâche 6 : Ajouter des tests d'intégration
 
 Ajoutez une classe de tests d'intégration pour la classe `ProductRegistryCommandResource`. L'objectif est de tester l'intégration entre le client et le serveur via l'API HTTP.
