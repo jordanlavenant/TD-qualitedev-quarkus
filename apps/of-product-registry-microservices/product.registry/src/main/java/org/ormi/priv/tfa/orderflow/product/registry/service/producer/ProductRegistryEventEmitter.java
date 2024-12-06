@@ -91,7 +91,7 @@ public class ProductRegistryEventEmitter {
   public void sink(String correlationId, ProductRegistryEvent event) {
     // Get the producer for the correlation id
     getEventSinkByCorrelationId(correlationId)
-        .thenAccept((producer) -> {
+        .thenAccept(producer ->
           // Sink the event
           producer
               .newMessage()
@@ -108,8 +108,7 @@ public class ProductRegistryEventEmitter {
                 } catch (PulsarClientException e) {
                   throw new ProductRegistryException("Failed to close producer", e);
                 }
-              });
-        });
+            }));
   }
 
   /**

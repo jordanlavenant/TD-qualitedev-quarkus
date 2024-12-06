@@ -40,6 +40,11 @@ public class ProductRegistry {
   private AtomicLong currentVersion = new AtomicLong(0);
 
   /**
+   * Log prefix for commands.
+   */
+  private static final String COMMAND_LOG_PREFIX = "Command: ";
+
+  /**
    * Default constructor.
    * 
    * @param productRegistryService - Product registry service to interact with the
@@ -59,26 +64,26 @@ public class ProductRegistry {
   public Uni<? extends ProductRegistryEvent> handle(ProductRegistryCommand cmd) {
     Log.debug("Handling command: " + cmd.getClass().getName());
     if (cmd instanceof RegisterProduct register) {
-      Log.debug("Command: " + register.toString());
+      Log.debug(COMMAND_LOG_PREFIX + register.toString());
       return productRegistryService
           .registerProduct(this, register)
           .onItem().invoke(this::apply)
           .onFailure().invoke(e -> Log.error("Failed to register product", e));
     } else if (cmd instanceof RemoveProduct remove) {
-      Log.debug("Command: " + remove.toString());
+      Log.debug(COMMAND_LOG_PREFIX + remove.toString());
       return productRegistryService
           .removeProduct(this, remove)
           .onItem().invoke(this::apply)
           .onFailure().invoke(e -> Log.error("Failed to remove product", e));
     } else if (cmd instanceof UpdateProduct update) {
-      Log.debug("Command: " + update.toString());
+      Log.debug(COMMAND_LOG_PREFIX + update.toString());
       return productRegistryService
           .updateProduct(this, update)
           .onItem().invoke(this::apply)
           .onFailure().invoke(e -> Log.error("Failed to update product", e));
     } else {
       Log.warn("Unhandled command type: " + cmd.getClass().getName());
-      Log.debug("Command: " + cmd.toString());
+      Log.debug(COMMAND_LOG_PREFIX + cmd.toString());
       return Uni.createFrom().failure(new IllegalArgumentException("Unhandled command type"));
     }
   }
@@ -102,12 +107,10 @@ public class ProductRegistry {
       products.remove(removed.payload.productId);
     } else if (event instanceof ProductUpdated updated) {
       final ProductId productId = updated.payload.productId;
-      products.compute(productId, (k, v) -> {
-        return new Product(
+      products.compute(productId, (k, v) -> new Product(
             productId,
             updated.payload.name,
-            updated.payload.productDescription);
-      });
+          updated.payload.productDescription));
     } else {
       Log.warn("Unhandled event type: " + event.getClass().getName());
     }
