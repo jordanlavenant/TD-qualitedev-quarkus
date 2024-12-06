@@ -15,6 +15,9 @@ Le microservice de registre de produits est un microservice côté écriture qui
 Le microservice n'est pas complètement documenté. Vous devez compléter les commentaires et la Javadoc du microservice.
 
 _Aperçu du commit associé à la javadoc :_
+
+> [Lien du commit](https://github.com/jordanlavenant/TD-qualitedev-quarkus/commit/fec9b14e902703cc5ed4fcbb0cbbd8eaf5580da2)
+
 ![Image](assets/javadoc.png)
 
 ## Tâche 2 : Corriger les RuntimeException paresseuses
@@ -42,6 +45,9 @@ try {
 On peut remplacer les exceptions `RuntimeException` par des exceptions plus spécifiques en créant nos propres classes d'exception personnalisées.
 
 _Aperçu du commit associé aux exceptions spécifiques :_
+
+> [Lien du commit](https://github.com/jordanlavenant/TD-qualitedev-quarkus/commit/9393209d3ebc653ee7b9a28116a5201d5bec7042)
+
 ![Image](assets/specific_exception.png)
 
 ## Tâche 3 : Convertir les payloads des Entités (couche de persistance) en records
@@ -72,6 +78,10 @@ public static class Payload { // Convert to record
 
 Convertir les classes en records permet de rendre les attributs immuables, permettant ainsi de garantir que les instances de ces classes ne peuvent pas être modifiées après leur création.
 
+_Aperçu du commit relatif à la conversion des class en records :_
+> [Lien du commit](https://github.com/jordanlavenant/TD-qualitedev-quarkus/commit/ec7dc0cc6c8c8ed983a8b97cdbc8714259041b21)
+
+![Image](assets/records.png)
 
 ## Tâche 4 : Modifier les Entités (couche de persistance) pour utiliser des champs privés avec des accesseurs
 
@@ -89,6 +99,13 @@ public Payload payload; // Should be changed to private and have accessors
 ::: warning
 Vérifiez que cette opération ne casse pas les mappers.
 :::
+
+_Aperçu du commit relatif à la modification des entités pour utiliser des champs privés avec des accesseurs :_
+
+> [Lien du commit]()
+
+![Image](assets/private.png)
+
 
 ## Tâche 4.1 : Champs publics sur les entités Panache
 
